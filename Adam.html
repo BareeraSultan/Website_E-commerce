@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Creative Agency</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: #fff;
+      /* Dark blue gradient with animated overlay */
+      background: linear-gradient(120deg, #0a2342 0%, #193b6a 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+    /* Animated overlay effect */
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: rgba(10,35,66,0.7);
+      animation: overlayMove 8s linear infinite alternate;
+      transition: background 0.5s;
+    }
+    @keyframes overlayMove {
+      0% { background: rgba(10,35,66,0.7);}
+      100% { background: rgba(25,59,106,0.7);}
+    }
+    /* Background image styling */
+    .bg-image {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5) blur(1px) saturate(1.2);
+      animation: zoomBg 20s ease-in-out infinite alternate;
+      transition: filter 0.5s;
+    }
+    @keyframes zoomBg {
+      0% { transform: scale(1);}
+      100% { transform: scale(1.08);}
+    }
+    /* Content styling */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 120px 20px 100px 20px;
+    }
+    .hero h1 {
+      font-size: 4vw;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      line-height: 1.1;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.45);
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 28px;
+      color: #b3c7e6;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .cta-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 16px 44px;
+      background: linear-gradient(90deg, #1e90ff 60%, #00bfff 100%);
+      color: #fff;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 16px rgba(30,144,255,0.15);
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+      border: none;
+      letter-spacing: 1px;
+    }
+    .cta-btn:hover {
+      background: linear-gradient(90deg, #00bfff 60%, #1e90ff 100%);
+      color: #10172a;
+      box-shadow: 0 8px 32px rgba(30,144,255,0.25);
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .services, .portfolio, .testimonials, .contact {
+      background: rgba(20, 30, 60, 0.92);
+      border-radius: 18px;
+      margin-top: 40px;
+      box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+      padding-bottom: 40px;
+    }
+    .services h2, .portfolio h2, .testimonials h2, .contact h2 {
+      text-align: center;
+      color: #00ffd0;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    .service-list, .portfolio-list {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .service, .portfolio-item {
+      flex: 1 1 220px;
+      background: linear-gradient(120deg, #23272f 60%, #18181b 100%);
+      padding: 28px 18px;
+      border-radius: 12px;
+      margin: 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+      transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+      border: 1.5px solid #23272f;
+      color: #f1f1f1;
+    }
+    .service:hover, .portfolio-item:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(0,255,208,0.10);
+      border: 1.5px solid #00ffd0;
+      color: #00ffd0;
+    }
+    .service h3 {
+      color: #00ffd0;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+    .portfolio-item {
+      font-weight: 600;
+      color: #00ffd0;
+      font-size: 1.1rem;
+      background: linear-gradient(90deg, #18181b 60%, #23272f 100%);
+      border: 1.5px solid #23272f;
+    }
+    .testimonials blockquote {
+      font-size: 1.2rem;
+      color: #fff;
+      background: #23272f;
+      border-left: 6px solid #00ffd0;
+      margin: 30px auto 0 auto;
+      padding: 22px 30px;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 420px;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+    .contact input, .contact textarea {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      font-size: 1rem;
+      background: #18181b;
+      color: #fff;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .contact input:focus, .contact textarea:focus {
+      border: 1.5px solid #00ffd0;
+      outline: none;
+      box-shadow: 0 0 8px #00ffd0;
+    }
+    .contact button[type="submit"] {
+      background: linear-gradient(90deg, #00ffd0 60%, #23272f 100%);
+      color: #18181b;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: background 0.3s, color 0.3s;
+      box-shadow: 0 2px 8px rgba(0,255,208,0.10);
+    }
+    .contact button[type="submit"]:hover {
+      background: linear-gradient(90deg, #23272f 60%, #00ffd0 100%);
+      color: #00ffd0;
+    }
+    @media (max-width: 800px) {
+      .service-list, .portfolio-list {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      section {
+        padding: 40px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated background image and overlay -->
+  <img class="bg-image" src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80" alt="Background Car">
+  <div class="bg-overlay"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Grow Your Brand with Stunning Design</h1>
+    <p>We craft digital experiences that drive results.</p>
+    <a href="#contact" class="cta-btn">Get Started</a>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services">
+    <h2>Our Services</h2>
+    <div class="service-list">
+          <div class="service">
+      <h3>E-Commerce Platform</h3>
+      <p>Custom online stores to grow your business and manage sales efficiently.</p>
+    </div>
+    <div class="service">
+      <h3>Selling Services</h3>
+      <p>End-to-end solutions for selling your products and services online.</p>
+    </div>
+  </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section class="portfolio">
+    <h2>Our Work</h2>
+    <div class="portfolio-list"><div class="portfolio-item">
+  <a href="adam1.html" style="text-decoration: none; color: inherit;">
+    Project 1
+  </a>
+</div>
+      <div class="portfolio-item">Project 2</div>
+      <div class="portfolio-item">Project 3</div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <h2>What Clients Say</h2>
+    <blockquote>
+      "Amazing service and beautiful designs!" – Client Name
+    </blockquote>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+</body>
+</html>
