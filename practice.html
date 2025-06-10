@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MyDesigns - Creative Digital Solutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      src: url(https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 15px 40px;
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2a2a2a;
+    }
+
+    .logo span {
+      color: #4e6bff;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav a {
+      color: #2a2a2a;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      font-size: 16px;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #4e6bff;
+    }
+
+    nav a:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #4e6bff;
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
+    }
+
+    nav a:hover:after {
+      width: 100%;
+    }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    .hero video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .hero-content {
+      z-index: 2;
+      padding: 20px;
+      max-width: 800px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .btn {
+      padding: 14px 32px;
+      background: #4e6bff;
+      color: white;
+      border: none;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: 0.3s;
+      display: inline-block;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(78, 107, 255, 0.3);
+    }
+
+    .btn:hover {
+      background: #3a56e8;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(78, 107, 255, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid white;
+      margin-left: 15px;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: #4e6bff;
+    }
+
+    section {
+      padding: 100px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2a2a2a;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 3px;
+      background: #4e6bff;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title p {
+      color: #666;
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .card i {
+      font-size: 50px;
+      margin-bottom: 20px;
+      color: #4e6bff;
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #666;
+    }
+
+    .gallery-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .image-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      scroll-behavior: smooth;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+
+    .image-gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+    .image-gallery img {
+      border-radius: 10px;
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .image-gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .scroll-btn {
+      background: white;
+      border: none;
+      color: #4e6bff;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px 15px;
+      z-index: 1;
+      transition: 0.3s ease;
+      border-radius: 50%;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+    }
+
+    .scroll-btn:hover {
+      background: #4e6bff;
+      color: white;
+    }
+
+    .scroll-btn.left {
+      position: absolute;
+      left: 0;
+    }
+
+    .scroll-btn.right {
+      position: absolute;
+      right: 0;
+    }
+
+    .about-section {
+      background: white;
+    }
+
+    .about-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .about-text h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #2a2a2a;
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .about-text ul {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+
+    .about-text ul li {
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .contact-section {
+      background: linear-gradient(135deg, #4e6bff 0%, #3a56e8 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1531496651456-71c0de1e06a6?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .contact-section .section-title h2,
+    .contact-section .section-title p {
+      color: white;
+    }
+
+    .contact-section .section-title h2:after {
+      background: white;
+    }
+
+    #contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #contact-form input,
+    #contact-form textarea,
+    #contact-form select {
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 100%;
+      background: rgba(255,255,255,0.9);
+    }
+
+    #contact-form textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    #contact-form button {
+      background-color: white;
+      color: #4e6bff;
+      font-weight: 600;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+    }
+
+    #contact-form button:hover {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    #form-status {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+      transition: all 0.3s;
+    }
+
+    .whatsapp-float:hover {
+      background: #128C7E;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    footer {
+      background: #2a2a2a;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: left;
+    }
+
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3:after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 2px;
+      background: #4e6bff;
+      bottom: 0;
+      left: 0;
+    }
+
+    .footer-column p {
+      margin-bottom: 15px;
+      color: #bbb;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column ul li a:hover {
+      color: #4e6bff;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: white;
+      background: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: #4e6bff;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #bbb;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-image {
+        order: -1;
+      }
+      
+      nav ul {
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      .logo {
+        font-size: 24px;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 28px;
+      }
+      
+      .btn {
+        padding: 12px 25px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="logo">My<span>Designs</span></div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <video autoplay muted loop>
+      <source src="hero-bg.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content">
+      <h1>Creative Designs & Digital Solutions</h1>
+      <p>We help brands shine in the digital world with innovative solutions tailored to your needs.</p>
+      <div>
+        <a href="#services" class="btn">Explore Services</a>
+        <a href="#contact" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="section-title">
+      <h2>Our Services</h2>
+      <p>We offer comprehensive digital solutions to help your business grow and succeed in today's competitive market.</p>
+    </div>
+    <div class="service-grid">
+      <a href="#ecommerce" class="card">
+        <i class="fas fa-store"></i>
+        <h3>E-commerce Handling</h3>
+        <p>Complete management of your online store including product research, listings, customer support, and logistics.</p>
+      </a>
+      <a href="#callcenter" class="card">
+        <i class="fas fa-headset"></i>
+        <h3>Call Center Services</h3>
+        <p>24/7 customer support, outbound sales, and client management services for businesses of all sizes.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="portfolio-section" id="portfolio">
+    <div class="section-title">
+      <h2>Our Portfolio</h2>
+      <p>Take a look at some of our recent work and success stories from satisfied clients.</p>
+    </div>
+    
+    <div class="ecommerce-section" id="ecommerce">
+      <h3>E-Commerce Services</h3>
+      <p>We handle product research, listings, customer support, logistics, and store optimization on Amazon, Walmart, and eBay.</p>
+      <div class="gallery-wrapper">
+        <button class="scroll-btn left" onclick="scrollGallery('ecom-gallery', -300)">❮</button>
+        <div class="image-gallery" id="ecom-gallery">
+          <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="E-commerce Project 1">
+          <img src="https://images.unsplash.com/photo-1486401899868-0e435ed85128?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="E-commerce Project 2">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="E-commerce Project 3">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="E-commerce Project 4">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="E-commerce Project 5">
+        </div>
+        <button class="scroll-btn right" onclick="scrollGallery('ecom-gallery', 300)">❯</button>
+      </div>
+    </div>
+
+    <div class="callcenter-section" id="callcenter" style="margin-top: 60px;">
+      <h3>Call Center Services</h3>
+      <p>24/7 support, outbound sales, and client management for companies like HUH Corp and more.</p>
+      <div class="gallery-wrapper">
+        <button class="scroll-btn left" onclick="scrollGallery('call-gallery', -300)">❮</button>
+        <div class="image-gallery" id="call-gallery">
+          <img src="call_img1.jpg" alt="Call Center 1">
+          <img src="call_img2.jpg" alt="Call Center 2">
+          <img src="call_img3.jpg" alt="Call Center 3">
+          <img src="call_img4.jpg" alt="Call Center 4">
+          <img src="call_img1.jpg" alt="Call Center 5">
+        </div>
+        <button class="scroll-btn right" onclick="scrollGallery('call-gallery', 300)">❯</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section" id="about">
+    <div class="about-content">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Our Team">
+      </div>
+      <div class="about-text">
+        <h2>About Our Company</h2>
+        <p>MyDesigns is a leading digital solutions provider specializing in e-commerce management and call center services. Founded in 2015, we've helped hundreds of businesses establish and grow their online presence.</p>
+        <p>Our team consists of experienced professionals who are passionate about delivering exceptional results for our clients. We combine creativity with technical expertise to provide solutions that drive real business growth.</p>
+        <ul>
+          <li><i class="fas fa-check" style="color: #4e6bff; margin-right: 10px;"></i> 7+ years of industry experience</li>
+          <li><i class="fas fa-check" style="color: #4e6bff; margin-right: 10px;"></i> 100+ satisfied clients worldwide</li>
+          <li><i class="fas fa-check" style="color: #4e6bff; margin-right: 10px;"></i> Dedicated support team available 24/7</li>
+          <li><i class="fas fa-check" style="color: #4e6bff; margin-right: 10px;"></i> Custom solutions tailored to your needs</li>
+        </ul>
+        <a href="#contact" class="btn">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="section-title">
+      <h2>Contact Us</h2>
+      <p>Need our services? Let us know what you need, and our team will get back to you shortly.</p>
+    </div>
+    
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <select name="service" required>
+        <option value="">Select a Service</option>
+        <option value="E-commerce Handling">E-commerce Handling</option>
+        <option value="Call Center Services">Call Center Services</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+      <p id="form-status"></p>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>About MyDesigns</h3>
+        <p>We provide innovative digital solutions to help businesses grow and succeed in the online world.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#ecommerce">E-commerce Handling</a></li>
+          <li><a href="#callcenter">Call Center Services</a></li>
+          
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> 123 Business Ave, City, Country</p>
+        <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +1 (123) 456-7890</p>
+        <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@mydesigns.com</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 MyDesigns. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/03251218502" target="_blank" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i> WhatsApp
+  </a>
+
+  <script>
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Image gallery scrolling
+    function scrollGallery(id, offset) {
+      const container = document.getElementById(id);
+      container.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+
+    // Form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formStatus = document.getElementById('form-status');
+      formStatus.textContent = "Message sent! We'll contact you soon.";
+      formStatus.style.color = "white";
+      this.reset();
+      
+      // In a real implementation, you would send the form data to a server here
+      // For example using fetch() or XMLHttpRequest
+    });
+
+    // Initialize EmailJS (you would replace with your actual credentials)
+    // (function() {
+    //   emailjs.init("YOUR_USER_ID");
+    // })();
+  </script>
+</body>
+</html>
