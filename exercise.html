@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MyDesigns - Creative Digital Solutions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      src: url(https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+    }
+
+    /* Custom Cursor Styles */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(78, 107, 255, 0.5);
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+    }
+
+    .cursor-follower {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(78, 107, 255, 0.7);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease;
+    }
+
+    .cursor.active {
+      width: 30px;
+      height: 30px;
+      background-color: rgba(78, 107, 255, 0.8);
+    }
+
+    .cursor-follower.active {
+      width: 60px;
+      height: 60px;
+      border-width: 3px;
+      background-color: rgba(78, 107, 255, 0.2);
+    }
+
+    .cursor.click {
+      transform: translate(-50%, -50%) scale(0.8);
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cursor-follower.click {
+      transform: translate(-50%, -50%) scale(1.2);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 15px 40px;
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2a2a2a;
+    }
+
+    .logo span {
+      color: #4e6bff;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    nav a {
+      color: #2a2a2a;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+      font-size: 16px;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #4e6bff;
+    }
+
+    nav a:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: #4e6bff;
+      bottom: -5px;
+      left: 0;
+      transition: width 0.3s;
+    }
+
+    nav a:hover:after {
+      width: 100%;
+    }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+    }
+
+    .hero-content {
+      z-index: 2;
+      padding: 20px;
+      max-width: 800px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .btn {
+      padding: 14px 32px;
+      background: #4e6bff;
+      color: white;
+      border: none;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: 0.3s;
+      display: inline-block;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(78, 107, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      background: #3a56e8;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(78, 107, 255, 0.4);
+    }
+
+    .btn:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+
+    .btn:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(20, 20);
+        opacity: 0;
+      }
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid white;
+      margin-left: 15px;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: #4e6bff;
+    }
+
+    section {
+      padding: 100px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2a2a2a;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2:after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 3px;
+      background: #4e6bff;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .section-title p {
+      color: #666;
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: #4e6bff;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover:before {
+      transform: scaleX(1);
+    }
+
+    .card i {
+      font-size: 50px;
+      margin-bottom: 20px;
+      color: #4e6bff;
+      transition: transform 0.3s;
+    }
+
+    .card:hover i {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: #666;
+    }
+
+    .gallery-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .image-gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      scroll-behavior: smooth;
+      padding: 10px 0;
+      scrollbar-width: none;
+    }
+
+    .image-gallery::-webkit-scrollbar {
+      display: none;
+    }
+
+    .image-gallery img {
+      border-radius: 10px;
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .image-gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .scroll-btn {
+      background: white;
+      border: none;
+      color: #4e6bff;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px 15px;
+      z-index: 1;
+      transition: 0.3s ease;
+      border-radius: 50%;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+    }
+
+    .scroll-btn:hover {
+      background: #4e6bff;
+      color: white;
+    }
+
+    .scroll-btn.left {
+      position: absolute;
+      left: 0;
+    }
+
+    .scroll-btn.right {
+      position: absolute;
+      right: 0;
+    }
+
+    .about-section {
+      background: white;
+      background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    .about-section:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.9);
+    }
+
+    .about-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .about-text h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #2a2a2a;
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+      color: #666;
+      font-size: 16px;
+    }
+
+    .about-text ul {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+
+    .about-text ul li {
+      margin-bottom: 10px;
+      color: #666;
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .about-text ul li:before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #4e6bff;
+    }
+
+    .contact-section {
+      background: linear-gradient(135deg, #4e6bff 0%, #3a56e8 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1531496651456-71c0de1e06a6?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .contact-section:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(78, 107, 255, 0.9);
+      z-index: 0;
+    }
+
+    .contact-section .section-title h2,
+    .contact-section .section-title p {
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-section .section-title h2:after {
+      background: white;
+    }
+
+    #contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #contact-form input,
+    #contact-form textarea,
+    #contact-form select {
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 100%;
+      background: rgba(255,255,255,0.9);
+      transition: all 0.3s;
+    }
+
+    #contact-form input:focus,
+    #contact-form textarea:focus,
+    #contact-form select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+    }
+
+    #contact-form textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    #contact-form button {
+      background-color: white;
+      color: #4e6bff;
+      font-weight: 600;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #contact-form button:hover {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    #form-status {
+      margin-top: 10px;
+      font-size: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+      transition: all 0.3s;
+    }
+
+    .whatsapp-float:hover {
+      background: #128C7E;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    footer {
+      background: #2a2a2a;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+      background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(42, 42, 42, 0.9);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-column h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3:after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 2px;
+      background: #4e6bff;
+      bottom: 0;
+      left: 0;
+    }
+
+    .footer-column p {
+      margin-bottom: 15px;
+      color: #bbb;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column ul li a:hover {
+      color: #4e6bff;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: white;
+      background: rgba(255,255,255,0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: #4e6bff;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: #bbb;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Loading Animation */
+    .loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #4e6bff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid white;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Scroll to Top Button */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: #4e6bff;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .scroll-top.active {
+      opacity: 1;
+      visibility: visible;
+      bottom: 90px;
+    }
+
+    .scroll-top:hover {
+      background: #3a56e8;
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-image {
+        order: -1;
+      }
+      
+      nav ul {
+        gap: 15px;
+      }
+
+      .cursor, .cursor-follower {
+        display: none;
+      }
+
+      body, html {
+        cursor: auto;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      .logo {
+        font-size: 24px;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 28px;
+      }
+      
+      .btn {
+        padding: 12px 25px;
+        font-size: 14px;
+      }
+
+      .whatsapp-float {
+        padding: 12px 15px;
+        font-size: 14px;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div class="loader-wrapper" id="loader">
+    <span class="loader"></span>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <header id="header">
+    <div class="logo">My<span>Designs</span></div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Creative Designs & Digital Solutions</h1>
+      <p>We help brands shine in the digital world with innovative solutions tailored to your needs.</p>
+      <div>
+        <a href="#services" class="btn">Explore Services</a>
+        <a href="#contact" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="section-title">
+      <h2>Our Services</h2>
+      <p>We offer comprehensive digital solutions to help your business grow and succeed in today's competitive market.</p>
+    </div>
+    <div class="service-grid">
+      <a href="#ecommerce" class="card">
+        <i class="fas fa-store"></i>
+        <h3>E-commerce Handling</h3>
+        <p>Complete management of your online store including product research, listings, customer support, and logistics.</p>
+      </a>
+      <a href="#callcenter" class="card">
+        <i class="fas fa-headset"></i>
+        <h3>Call Center Services</h3>
+        <p>24/7 customer support, outbound sales, and client management services for businesses of all sizes.</p>
+      </a>
+
+    </div>
+  </section>
+<section class="portfolio-section" id="portfolio">
+  <div class="section-title">
+    <h2>Our Portfolio</h2>
+    <p>Explore some of our latest projects and see how we’ve helped clients grow their businesses with expert digital solutions.</p>
+  </div>
+
+  <!-- ▶ E-Commerce Portfolio -->
+  <div class="portfolio-category ecommerce-section" id="ecommerce">
+    <h1 style="text-align: center;">E-Commerce Services</h1>
+    <p style="text-align: center">Our team manages complete e-commerce solutions on platforms like Amazon, Walmart, and eBay. This includes:</p>
+    <ul>
+    
+    <div class="gallery-wrapper">
+      <button class="scroll-btn left" onclick="scrollGallery('ecom-gallery', -300)">❮</button>
+      <div class="image-gallery" id="ecom-gallery">
+        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=500&q=60" alt="Product research dashboard screenshot">
+        <img src="https://images.unsplash.com/photo-1486401899868-0e435ed85128?auto=format&fit=crop&w=500&q=60" alt="Optimized product listings interface">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=60" alt="Customer support performance tools">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=60" alt="E-commerce logistics tracking system">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60" alt="Store performance report dashboard">
+      </div>
+      <button class="scroll-btn right" onclick="scrollGallery('ecom-gallery', 300)">❯</button>
+    </div>
+  </div>
+
+  <!-- ▶ Call Center Portfolio -->
+  <div class="portfolio-category callcenter-section" id="callcenter" style="margin-top: 60px;">
+    <h1 style="text-align: center">Call Center Services</h1>
+    <p style="text-align: center">We provide reliable and scalable call center solutions for businesses including:</p>
+
+    <div class="gallery-wrapper">
+      <button class="scroll-btn left" onclick="scrollGallery('call-gallery', -300)">❮</button>
+       <div class="image-gallery" id="call-gallery">
+          <img src="call_img1.jpg" alt="Call Center 1">
+          <img src="call_img2.jpg" alt="Call Center 2">
+          <img src="call_img3.jpg" alt="Call Center 3">
+          <img src="call_img4.jpg" alt="Call Center 4">
+          <img src="call_img1.jpg" alt="Call Center 5">
+        </div>
+      <button class="scroll-btn right" onclick="scrollGallery('call-gallery', 300)">❯</button>
+    </div>
+  </div>
+</section>
+
+  
+
+  <section class="about-section" id="about">
+    <div class="about-content">
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Our Team">
+      </div>
+      <div class="about-text">
+        <h2>About Our Company</h2>
+        <p>MyDesigns is a leading digital solutions provider specializing in e-commerce management and call center services. Founded in 2015, we've helped hundreds of businesses establish and grow their online presence.</p>
+        <p>Our team consists of experienced professionals who are passionate about delivering exceptional results for our clients. We combine creativity with technical expertise to provide solutions that drive real business growth.</p>
+        <ul>
+          <li>7+ years of industry experience</li>
+          <li>100+ satisfied clients worldwide</li>
+          <li>Dedicated support team available 24/7</li>
+          <li>Custom solutions tailored to your needs</li>
+        </ul>
+        <a href="#contact" class="btn">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="section-title">
+      <h2>Contact Us</h2>
+      <p>Need our services? Let us know what you need, and our team will get back to you shortly.</p>
+    </div>
+    
+    <form id="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <select name="service" required>
+        <option value="">Select a Service</option>
+        <option value="E-commerce Handling">E-commerce Handling</option>
+        <option value="Call Center Services">Call Center Services</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+      <p id="form-status"></p>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>About MyDesigns</h3>
+        <p>We provide innovative digital solutions to help businesses grow and succeed in the online world.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#ecommerce">E-commerce Handling</a></li>
+          <li><a href="#callcenter">Call Center Services</a></li>
+    
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Contact Info</h3>
+        <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> 123 Business Ave, City, Country</p>
+        <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +1 (123) 456-7890</p>
+        <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@mydesigns.com</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2023 MyDesigns. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/03251218502" target="_blank" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i> WhatsApp
+  </a>
+
+  <script>
+    // Loading animation
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      setTimeout(function() {
+        loader.style.opacity = '0';
+        setTimeout(function() {
+          loader.style.display = 'none';
+        }, 500);
+      }, 1000);
+    });
+
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const cursorFollower = document.getElementById('cursor-follower');
+    
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      
+      setTimeout(() => {
+        cursorFollower.style.left = e.clientX + 'px';
+        cursorFollower.style.top = e.clientY + 'px';
+      }, 100);
+    });
+    
+    // Cursor effects
+    document.querySelectorAll('a, button, .card, .scroll-btn, input, textarea, select').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('active');
+        cursorFollower.classList.add('active');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('active');
+        cursorFollower.classList.remove('active');
+      });
+      
+      el.addEventListener('mousedown', () => {
+        cursor.classList.add('click');
+        cursorFollower.classList.add('click');
+      });
+      el.addEventListener('mouseup', () => {
+        cursor.classList.remove('click');
+        cursorFollower.classList.remove('click');
+      });
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      // Scroll to top button
+      const scrollTop = document.getElementById('scrollTop');
+      if (window.scrollY > 300) {
+        scrollTop.classList.add('active');
+      } else {
+        scrollTop.classList.remove('active');
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Scroll to top button
+    document.getElementById('scrollTop').addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Image gallery scrolling
+    function scrollGallery(id, offset) {
+      const container = document.getElementById(id);
+      container.scrollBy({ left: offset, behavior: 'smooth' });
+    }
+
+    // Form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formStatus = document.getElementById('form-status');
+      formStatus.textContent = "Message sent! We'll contact you soon.";
+      formStatus.style.color = "white";
+      this.reset();
+      
+      // In a real implementation, you would send the form data to a server here
+      // For example using fetch() or XMLHttpRequest
+    });
+
+    // Disable custom cursor on mobile devices
+    function checkIfMobile() {
+      if (window.innerWidth <= 768) {
+        document.body.style.cursor = 'auto';
+        cursor.style.display = 'none';
+        cursorFollower.style.display = 'none';
+      } else {
+        document.body.style.cursor = 'none';
+        cursor.style.display = 'block';
+        cursorFollower.style.display = 'block';
+      }
+    }
+    
+    window.addEventListener('resize', checkIfMobile);
+    checkIfMobile();
+  </script>
+</body>
+</html>
